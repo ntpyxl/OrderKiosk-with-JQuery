@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kiosk Menu</title>
+
+        <script src="receiptScrollButton.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <link href="styles.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    </head>
+    <body class="bg-gray-900 cursor-default">
+        <button id="scrollOrderButton" onclick="window.location='pos.html#receipt'" class="fixed md:hidden bottom-5 right-5 p-3 border-2 border-gray-900 bg-blue-200 text-black font-semibold rounded-full text-3xl shadow-lg">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </button>
+
+        <div class="grid grid-cols-12">
+            <section id="menu" class="col-span-12 md:col-span-9 px-2 py-5 bg-gray-800">
+                <h2 class="mb-4 px-5 text-4xl font-bold text-white text-center">MENU</h2>
+
+                <div class="inline-flex items-center justify-center w-full">
+                    <hr class="w-[85vw] md:w-[60vw] h-1 my-8 bg-gray-500 border-0">
+                    <span class="absolute -translate-x-1/2 left-1/2 md:left-1/6 px-4 bg-gray-800 text-3xl font-semibold text-white">COMBOS</span>
+                </div>
+                <div class="flex justify-center">
+                    <div class="grid grid-cols-1 md:grid-cols-3">
+                        <div id="quickombo" class="p-5 col-span-1 menuItem comboItem hasDrinkVariant">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit bg-gradient-to-t from-blue-400 via-blue-100 to-white">
+                                    <img src="images/quickombo.png" alt="Quickombo" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Quickombo</h3>
+                                <p class="my-2 px-2 text-gray-800 flex-grow">
+                                    A cheeseburger and any small drink of choice.
+                                </p>
+
+                                <div class="flex-grow">
+                                    <div class="px-2 py-2">
+                                        <label for="drinkVariant" class="font-semibold text-lg">Drink:</label>
+                                        <select id="drinkVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="soda">Soda</option>
+                                            <option value="juice">Juice</option>
+                                            <option value="water">Water</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 sodaFlavor">
+                                        <label for="sodaFlavor" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="sodaFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="coke">Coke</option>
+                                            <option value="sprite">Sprite</option>
+                                            <option value="royal">Royal</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 juiceFlavor hidden">
+                                        <label for="juiceFlavor" class="font-semibold text-lg ">Flavor:</label>
+                                        <select id="juiceFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="lemon">Lemon</option>
+                                            <option value="mango">Mango</option>
+                                            <option value="apple">Apple</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 hidden">
+                                        <label for="drinkSize" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="drinkSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="small">Small</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-700 productPrice productPrice">PHP 60</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div id="decentCombo" class="p-5 col-span-1 menuItem comboItem hasSnackVariant hasDrinkVariant">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit bg-gradient-to-t from-blue-400 via-blue-100 to-white">
+                                    <img src="images/decent combo.png" alt="Decent Combo" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Decent Combo</h3>
+                                <p class="my-2 px-2 text-gray-800 flex-grow">
+                                    A Cheeseburger, small Fries or Chips of any flavor, and any medium drink of choice.
+                                </p>
+
+                                <div class="flex-grow">
+                                    <div class="px-2 py-2">
+                                        <label for="snackVariant" class="font-semibold text-lg">Snack:</label>
+                                        <select id="snackVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="fries">French Fries</option>
+                                            <option value="chips">Potato Chips</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2">
+                                        <label for="snackFlavor" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="snackFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="cheese">Cheese</option>
+                                            <option value="barbecue">Barbecue</option>
+                                            <option value="salted">Salted</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 hidden">
+                                        <label for="snackSize" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="snackSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="small">Small</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2">
+                                        <label for="drinkVariant" class="font-semibold text-lg">Drink:</label>
+                                        <select id="drinkVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="soda">Soda</option>
+                                            <option value="juice">Juice</option>
+                                            <option value="water">Water</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 sodaFlavor">
+                                        <label for="sodaFlavor" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="sodaFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="coke">Coke</option>
+                                            <option value="sprite">Sprite</option>
+                                            <option value="royal">Royal</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 juiceFlavor hidden">
+                                        <label for="juiceFlavor" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="juiceFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="lemon">Lemon</option>
+                                            <option value="mango">Mango</option>
+                                            <option value="apple">Apple</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 hidden">
+                                        <label for="drinkSize" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="drinkSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="medium">Medium</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-700 productPrice">PHP 95</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div id="bigCombo" class="p-5 col-span-1 menuItem comboItem hasSnackVariant hasDrinkVariant">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit bg-gradient-to-t from-blue-400 via-blue-100 to-white">
+                                    <img src="images/big combo.png" alt="Big Combo" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Big Combo</h3>
+                                <p class="my-2 px-2 text-gray-800 flex-grow">
+                                    A Bacon Cheeseburger, medium Fries or Chips of any flavor, and any medium drink of choice.
+                                </p>
+
+                                <div class="flex-grow">
+                                    <div class="px-2 py-2">
+                                        <label for="snackVariant" class="font-semibold text-lg">Snack:</label>
+                                        <select id="snackVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="fries">French Fries</option>
+                                            <option value="chips">Potato Chips</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2">
+                                        <label for="snackFlavor" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="snackFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="cheese">Cheese</option>
+                                            <option value="barbecue">Barbecue</option>
+                                            <option value="salted">Salted</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 hidden">
+                                        <label for="snackSize" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="snackSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="medium">Medium</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2">
+                                        <label for="drinkVariant" class="font-semibold text-lg">Drink:</label>
+                                        <select id="drinkVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="soda">Soda</option>
+                                            <option value="juice">Juice</option>
+                                            <option value="water">Water</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 sodaFlavor">
+                                        <label for="sodaFlavor" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="sodaFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="coke">Coke</option>
+                                            <option value="sprite">Sprite</option>
+                                            <option value="royal">Royal</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 juiceFlavor hidden">
+                                        <label for="juiceFlavor" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="juiceFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="lemon">Lemon</option>
+                                            <option value="mango">Mango</option>
+                                            <option value="apple">Apple</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 hidden">
+                                        <label for="drinkSize" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="drinkSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="medium">Medium</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-700 productPrice">PHP 110</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div id="womboCombo" class="p-5 col-span-1 menuItem comboItem hasSnackVariant hasDrinkVariant">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit bg-gradient-to-t from-blue-400 via-blue-100 to-white">
+                                    <img src="images/wombo combo.png" alt="Wombo Combo" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Wombo Combo</h3>
+                                <p class="my-2 px-2 text-gray-800 flex-grow">
+                                    A Stacked Burger, large Fries or Chips of any flavor, and any large drink of choice.
+                                </p>
+
+                                <div class="px-2 py-2 flex-grow">
+                                    <label for="snackVariant" class="font-semibold text-lg">Snack:</label>
+                                    <select id="snackVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                        <option value="fries">French Fries</option>
+                                        <option value="chips">Potato Chips</option>
+                                    </select>
+                                </div>
+
+                                <div class="px-2 py-2 flex-grow">
+                                    <label for="snackFlavor" class="font-semibold text-lg">Flavor:</label>
+                                    <select id="snackFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                        <option value="cheese">Cheese</option>
+                                        <option value="barbecue">Barbecue</option>
+                                        <option value="salted">Salted</option>
+                                    </select>
+                                </div>
+
+                                <div class="px-2 py-2 hidden">
+                                    <label for="snackSize" class="font-semibold text-lg">Flavor:</label>
+                                    <select id="snackSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                        <option value="large">Large</option>
+                                    </select>
+                                </div>
+
+                                <div class="px-2 py-2 flex-grow">
+                                    <label for="drinkVariant" class="font-semibold text-lg">Drink:</label>
+                                    <select id="drinkVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                        <option value="soda">Soda</option>
+                                        <option value="juice">Juice</option>
+                                        <option value="water">Water</option>
+                                    </select>
+                                </div>
+
+                                <div class="px-2 py-2 flex-grow sodaFlavor">
+                                    <label for="sodaFlavor" class="font-semibold text-lg">Flavor:</label>
+                                    <select id="sodaFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                        <option value="coke">Coke</option>
+                                        <option value="sprite">Sprite</option>
+                                        <option value="royal">Royal</option>
+                                    </select>
+                                </div>
+
+                                <div class="px-2 py-2 flex-grow juiceFlavor hidden">
+                                    <label for="juiceFlavor" class="font-semibold text-lg">Flavor:</label>
+                                    <select id="juiceFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                        <option value="lemon">Lemon</option>
+                                        <option value="mango">Mango</option>
+                                        <option value="apple">Apple</option>
+                                    </select>
+                                </div>
+
+                                <div class="px-2 py-2 hidden">
+                                    <label for="drinkSize" class="font-semibold text-lg">Flavor:</label>
+                                    <select id="drinkSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                        <option value="large">Large</option>
+                                    </select>
+                                </div>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-700 productPrice">PHP 160</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inline-flex items-center justify-center w-full">
+                    <hr class="w-[85vw] md:w-[60vw] h-1 my-8 bg-gray-500 border-0">
+                    <span class="absolute -translate-x-1/2 left-1/2 md:left-1/6 px-4 bg-gray-800 text-3xl font-semibold text-white">BURGERS</span>
+                </div>
+                <div class="flex justify-center">
+                    <div class="grid grid-cols-1 md:grid-cols-3">
+                        <div id="plainBurger" class="p-5 col-span-1 menuItem">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit">
+                                    <img src="images/plain burger.png" alt="Plain Burger" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Plain Burger</h3>
+                                <p class="my-2 px-2 text-gray-800 flex-grow">
+                                    Just a burger with a patty.
+                                </p>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-500 productPrice">PHP 40</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div id="cheeseburger" class="p-5 col-span-1 menuItem">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit">
+                                    <img src="images/cheeseburger.png" alt="Cheeseburger" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Cheeseburger</h3>
+                                <p class="my-2 px-2 text-gray-800 flex-grow">
+                                    A burger with patty and cheese.
+                                </p>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-500 productPrice">PHP 50</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="baconCheeseburger" class="p-5 col-span-1 menuItem">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit">
+                                    <img src="images/bacon cheeseburger.png" alt="Bacon Cheeseburger" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Bacon Cheeseburger</h3>
+                                <p class="my-2 px-2 text-gray-800 flex-grow">
+                                    A burger with bacon and cheese on the patty.
+                                </p>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-500 productPrice">PHP 65</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="extremeBurger" class="p-5 col-span-1 menuItem">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit">
+                                    <img src="images/extreme burger.png" alt="Extreme Burger" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Extreme Burger</h3>
+                                <p class="my-2 px-2 text-gray-800 flex-grow">
+                                    A burger with bacon, cheese, mushroom, and an egg on the patty.
+                                </p>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-500 productPrice">PHP 80</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="stackedBurger" class="p-5 col-span-1 menuItem">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit">
+                                    <img src="images/stacked burger.png" alt="Stacked Burger" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Stacked Burger</h3>
+                                <p class="my-2 px-2 text-gray-800 flex-grow">
+                                    A stacked-out burger with double the patty and cheese, along with bacon, mushroom, and an egg.
+                                </p>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-500 productPrice">PHP 95</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inline-flex items-center justify-center w-full">
+                    <hr class="w-[85vw] md:w-[60vw] h-1 my-8 bg-gray-500 border-0">
+                    <span class="absolute -translate-x-1/2 left-1/2 md:left-1/6 px-4 bg-gray-800 text-3xl font-semibold text-white">SNACKS</span>
+                </div>
+                <div class="flex justify-center">
+                    <div class="grid grid-cols-1 md:grid-cols-3">
+                        <div id="frenchFries" class="p-5 col-span-1 menuItem hasSnackVariant hasSizeVariant">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit">
+                                    <img src="images/fries.png" alt="French Fries" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">French Fries</h3>
+
+                                <div class="flex-grow">
+                                    <div class="px-2 py-2 hidden">
+                                        <label for="snackVariant" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="snackVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="fries">French Fries</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2">
+                                        <label for="snackFlavor" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="snackFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="cheese">Cheese</option>
+                                            <option value="barbecue">Barbecue</option>
+                                            <option value="salted">Salted</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2">
+                                        <label for="snackSize" class="font-semibold text-lg">Size:</label>
+                                        <select id="snackSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="small">Small</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="large">Large</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-500 productPrice">PHP 30</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div id="potatoChips" class="p-5 col-span-1 menuItem hasSnackVariant hasSizeVariant">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit">
+                                    <img src="images/chips.png" alt="Potato Chips" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Potato Chips</h3>
+                                
+                                <div class="flex-grow">
+                                    <div class="px-2 py-2 hidden">
+                                        <label for="snackVariant" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="snackVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="chips">Potato Chips</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2">
+                                        <label for="snackFlavor" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="snackFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="cheese">Cheese</option>
+                                            <option value="barbecue">Barbecue</option>
+                                            <option value="salted">Salted</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2">
+                                        <label for="snackSize" class="font-semibold text-lg">Size:</label>
+                                        <select id="snackSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="small">Small</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="large">Large</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-500 productPrice">PHP 35</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inline-flex items-center justify-center w-full">
+                    <hr class="w-[85vw] md:w-[60vw] h-1 my-8 bg-gray-500 border-0">
+                    <span class="absolute -translate-x-1/2 left-1/2 md:left-1/6 px-4 bg-gray-800 text-3xl font-semibold text-white">DRINKS</span>
+                </div>
+                <div class="flex justify-center">
+                    <div class="grid grid-cols-1 md:grid-cols-3">
+                        <div id="soda" class="p-5 col-span-1 menuItem hasDrinkVariant hasSizeVariant">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit">
+                                    <img src="images/soda.png" alt="Soda" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Soda</h3>
+
+                                <div class="flex-grow">
+                                    <div class="px-2 py-2 hidden">
+                                        <label for="drinkVariant" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="drinkVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="soda">Soda</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 sodaFlavor">
+                                        <label for="sodaFlavor" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="sodaFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="coke">Coke</option>
+                                            <option value="sprite">Sprite</option>
+                                            <option value="royal">Royal</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2">
+                                        <label for="drinkSize" class="font-semibold text-lg">Size:</label>
+                                        <select id="drinkSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="small">Small</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="large">Large</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-500 productPrice">PHP 20</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div id="juice" class="p-5 col-span-1 menuItem hasDrinkVariant hasSizeVariant">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit">
+                                    <img src="images/juice.png" alt="Juice" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Juice</h3>
+
+                                <div class="flex-grow">
+                                    <div class="px-2 py-2 hidden">
+                                        <label for="drinkVariant" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="drinkVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="juice">Juice</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2 juiceFlavor">                                        
+                                        <label for="juiceFlavor" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="juiceFlavor" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="lemon">Lemon</option>
+                                            <option value="mango">Mango</option>
+                                            <option value="apple">Apple</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2">
+                                        <label for="drinkSize" class="font-semibold text-lg">Size:</label>
+                                        <select id="drinkSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="small">Small</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="large">Large</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-500 productPrice">PHP 15</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="water" class="p-5 col-span-1 menuItem hasDrinkVariant hasSizeVariant">
+                            <div class="flex flex-col p-3 rounded-xl w-80 h-full bg-white">
+                                <div class="block mx-auto mb-3 p-2 rounded-xl w-fit">
+                                    <img src="images/water.png" alt="Water" class="w-40">
+                                </div>
+                                <h3 class="px-2 font-bold text-2xl productName">Water</h3>
+                                
+                                <div class="flex-grow">
+                                    <div class="px-2 py-2 hidden">
+                                        <label for="drinkVariant" class="font-semibold text-lg">Flavor:</label>
+                                        <select id="drinkVariant" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="water">Water</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="px-2 py-2">
+                                        <label for="drinkSize" class="font-semibold text-lg">Size:</label>
+                                        <select id="drinkSize" class="ml-2 p-1 border-2 border-gray-400 rounded-lg bg-blue-100">
+                                            <option value="small">Small</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="large">Large</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-row justify-between">
+                                    <h4 class="mt-5 mb-2 px-2 font-bold text-2xl text-blue-500 productPrice">PHP 10</h4>
+                                    <div class="flex flex-row items-center mt-3">
+                                        <input type="number" id="quantity" min="1" step="1" value="1" class="mx-2 p-2 w-16 border-2 border-black rounded-lg font-semibold text-lg">
+                                        <button class="px-2 py-1 border-2 border-gray-800 rounded-lg bg-gray-300 hover:bg-blue-400 font-semibold text-2xl cursor-pointer hover:scale-105 transition duration-200 ease-out addOrderButton">+ Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="receipt" class="col-span-12 md:col-span-3 px-2 pt-5 rounded-t-4xl md:rounded-t-none md:rounded-bl-2xl bg-blue-200 sticky top-0 h-[62vh] md:h-[90vh]">
+                <h2 class="px-5 text-4xl font-bold text-center">ORDER CART</h2>
+                <hr class="w-[85vw] md:w-[20vw] mx-auto h-1 my-4 bg-gray-800 border-0">
+
+                <div id="orderList" class="border-2 border-gray-500 rounded-lg m-2 p-3 px-5 bg-white font-semibold text-lg h-1/2 md:h-2/3 overflow-y-auto">
+                    <div class="grid grid-cols-[7fr_2fr_3fr] gap-2 border-b border-gray-500 px-3 py-2 font-bold">
+                        <span class="text-left">Product Name</span>
+                        <span class="text-center">Quantity</span>
+                        <span class="text-right">Price</span>
+                    </div>
+                </div>
+
+                <h2 class="mb-4 px-5 text-2xl font-semibold text-right">
+                    TOTAL AMOUNT TO PAY: 
+                    <span id="totalAmount" class="ml-3 font-bold">
+                        PHP 0
+                    </span>
+                </h2>
+
+                <div class="flex flex-col items-end">
+                    <input type="number" id="userPayAmount" min="1" step="1" value="" placeholder="PHP 0.00" class="mx-2 px-3 py-1 w-5/8 border-2 border-black rounded-lg bg-white font-semibold text-lg numberInNoButton">
+                    <div class="flex flex-row">
+                        <button onclick="location.reload();" class="mx-2 mt-3 py-1 border-2 border-gray-800 rounded-lg bg-gray-100 hover:bg-blue-400 font-semibold text-2xl w-28 cursor-pointer hover:scale-105 transition duration-200 ease-out">RESET</button>
+                        <button onclick="pay()" class="mx-2 mt-3 py-1 border-2 border-gray-800 rounded-lg bg-gray-100 hover:bg-blue-400 font-semibold text-2xl w-40 cursor-pointer hover:scale-105 transition duration-200 ease-out">PAY NOW</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer id="footer" class="px-20 py-5 justify-items-center">
+            <h3 class="text-3xl font-semibold text-white">
+                <i class="fa-solid fa-angle-right"></i> CONTACT US <i class="fa-solid fa-angle-left"></i>
+            </h3>
+            <div class="flex flex-row justify-items-center py-3">
+                <div class="flex flex-col px-3 text-white">
+                    <div>
+                        <i class="fa-brands fa-facebook-f"></i> FACEBOOK
+                    </div>
+                    <div>
+                        <i class="fa-brands fa-instagram"></i> INSTAGRAM
+                    </div>
+                    <div>
+                        <i class="fa-brands fa-twitter"></i> TWITTER
+                    </div>
+                </div>
+                <div class="flex flex-col px-3 text-white">
+                    <div>
+                        <i class="fa-brands fa-tiktok"></i> TIKTOK
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-envelope"></i> EMAIL
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-phone"></i> PHONE
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col items-center my-3 py-2">
+                <img src="images/snackburgIcon.png" class="w-36 px-1">
+                <h3 class="ml-2 px-3 text-3xl font-bold text-white">SNACKBURG</h3>
+            </div>
+        </footer>
+
+        <script src="saleVariants.js"></script>
+        <script src="saleSystem.js"></script>
+    </body>
+</html>
