@@ -1,11 +1,14 @@
 let cart = [];
+let totalAmount = 0;
 
 $('.addOrderButton').on('click', function(event) {
     addItemToCart($(this).closest('.menuItem'));
-    updateCart();
+    updateCart($('#orderList'));
+    updateTotalAmount();
 })
 
-function addItemToCart(item) {  
+function addItemToCart(item) {
+    // get all possible item values
     let productName = item.find('.productName').text();
     let snackVariant, snackFlavor, snackSize;
     if(item.hasClass('hasSnackVariant')) {
@@ -23,6 +26,7 @@ function addItemToCart(item) {
     let quantity = parseInt(item.find('#quantity').val(), 10);
     let totalPrice = parseInt(item.find('.productPrice').text().replace('PHP ', '').trim(), 10) * quantity;
 
+    // pushing item values to cart array
     let itemDetail = {
         productName: productName,
         quantity: quantity,
@@ -44,8 +48,7 @@ function addItemToCart(item) {
     cart.push(itemDetail);
 }
 
-function updateCart() {
-    const orderList = $('#orderList');
+function updateCart(orderList) {
     orderList.children().not(':first').remove();
     for(let i = 0; i < cart.length; i++) {
         createParentItem(i, orderList);
@@ -68,8 +71,34 @@ function updateCart() {
         }
 
         if(cart[i].snackVariant != null) {
-            createChildItem(orderList, cart[i].snackFlavor + " " + cart[i].snackVariant + " " + cart[i].snackSize[0]);
+            createChildItem(orderList, capitalize(cart[i].snackFlavor) + " " + capitalize(cart[i].snackVariant) + " " + capitalize(cart[i].snackSize[0]));
         } 
+    }
+}
+
+function updateTotalAmount() {
+    totalAmount = 0;
+    for(let i = 0; i < cart.length; i++) {
+        totalAmount += cart[i].totalPrice;
+    }
+    $('#totalAmount').text("PHP " + totalAmount);
+}
+
+function pay() {
+    if(cart.length > 0) {
+        const userPayAmount = $('#userPayAmount').val();
+        if(userPayAmount < totalAmount) {
+            const missingFunds = totalAmount - userPayAmount
+            alert("You have insufficient funds! You are missing PHP " + missingFunds + "!");
+        } else if (userPayAmount >= totalAmount) {
+            const change = userPayAmount - totalAmount;
+            $('#modalReceipt').removeClass('hidden');
+            $('body').addClass('overflow-hidden');
+            updateCart($('#receiptOrderList'));
+            $('#receiptTotalAmount').text("PHP " + totalAmount);
+            $('#reciptAmountPaid').text("PHP " + userPayAmount);
+            $('#reciptChange').text("PHP " + change);
+        }
     }
 }
 
@@ -93,6 +122,6 @@ function createChildItem(orderList, itemName) {
     orderList.append(row);
 }
 
-function pay() {
-    console.log(cart);
+function capitalize(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
 }
