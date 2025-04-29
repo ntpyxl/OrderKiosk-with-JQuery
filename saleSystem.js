@@ -72,6 +72,14 @@ function updateCart(orderList) {
 
         if(cart[i].snackVariant != null) {
             createChildItem(orderList, capitalize(cart[i].snackFlavor) + " " + capitalize(cart[i].snackVariant) + " " + capitalize(cart[i].snackSize[0]));
+        }
+        if(cart[i].drinkVariant != null) {
+            if(cart[i].drinkVariant == "water") {
+                createChildItem(orderList, capitalize(cart[i].drinkVariant) + " " + capitalize(cart[i].drinkSize[0]));
+            } else {
+                const drinkFlavor = cart[i].drinkVariant == "soda" ? cart[i].sodaFlavor : cart[i].juiceFlavor;
+                createChildItem(orderList, capitalize(drinkFlavor) + " " + capitalize(cart[i].drinkVariant) + " " + capitalize(cart[i].drinkSize[0]));
+            }
         } 
     }
 }
